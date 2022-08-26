@@ -10,7 +10,9 @@ def create_app():
     return app
 
 
-socketio = SocketIO(create_app(), cors_allowed_origins="*")
+app = create_app()
+
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 
 @socketio.on('message')
@@ -31,4 +33,4 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
-    socketio.run(create_app(), host='192.168.31.115')
+    socketio.run(app, host='192.168.31.115')
