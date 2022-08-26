@@ -15,6 +15,16 @@ app = create_app()
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 
+@socketio.on('connect')
+def connect():
+    print('User connected')
+
+
+@socketio.on('disconnect')
+def disconnect():
+    print('User disconnected')
+
+
 @socketio.on('message')
 def handle_message(message):
     print("Received message: ", message)
@@ -33,4 +43,4 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
-    socketio.run(app, host='192.168.31.115')
+    socketio.run(app, host='192.168.1.100')
