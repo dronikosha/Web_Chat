@@ -4,9 +4,13 @@ from flask_socketio import SocketIO, send
 from config import secret_key
 
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = secret_key
-socketio = SocketIO(app, cors_allowed_origins="*")
+def create_app():
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = secret_key
+    return app
+
+
+socketio = SocketIO(create_app(), cors_allowed_origins="*")
 
 
 @socketio.on('message')
@@ -27,4 +31,4 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
-    socketio.run(app, host='192.168.31.115')
+    socketio.run(create_app(), host='192.168.31.115')
